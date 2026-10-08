@@ -16,9 +16,9 @@
 ## 🗺️ แผนการดำเนินงาน 6 ระยะ (Phase-by-Phase Plan)
 
 ### Phase 1: Project Setup & Asset Preparation
-- [ ] 1.1 ติดตั้ง Packages ที่จำเป็น: `com.unity.probuilder` (v6.1.3)
-- [ ] 1.2 นำเข้าและจัดระเบียบ Assets จาก `PracticalExamResources/` เข้าสู่ `Assets/Resources_Exam/` (Models, Animations, Sounds)
-- [ ] 1.3 Git Commit & Push: `Phase 1: Project setup, installed ProBuilder, and organized assets`
+- [x] 1.1 ติดตั้ง Packages ที่จำเป็น: `com.unity.probuilder` (v6.1.3)
+- [x] 1.2 นำเข้าและจัดระเบียบ Assets จาก `PracticalExamResources/` เข้าสู่ `Assets/Resources_Exam/` (Models, Animations, Sounds) พร้อมตั้งค่า Humanoid Rig
+- [x] 1.3 Git Commit & Push: `Phase 1: Project setup, installed ProBuilder, configured Git LFS and organized assets` (Commit: `f1a0c7d`)
 
 ### Phase 2: Scenes Management & Flow (Q.1 — 10 คะแนน)
 - [ ] 2.1 สร้างฉากครบทั้ง 8 ซีนตาม Fig. 1 ใน PDF:
