@@ -54,10 +54,15 @@ namespace Ratchanon
             }
             else
             {
-                var controller = FindAnyObjectByType<CapsulePlayerController>();
-                if (controller != null)
+                var capsule = FindAnyObjectByType<CapsulePlayerController>();
+                if (capsule != null)
                 {
-                    target = controller.transform;
+                    target = capsule.transform;
+                }
+                else
+                {
+                    var humanoid = FindAnyObjectByType<HumanoidPlayerController>();
+                    if (humanoid != null) target = humanoid.transform;
                 }
             }
         }

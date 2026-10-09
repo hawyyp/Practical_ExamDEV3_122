@@ -23,6 +23,10 @@ namespace Ratchanon
                 {
                     Stage1Manager.Instance.TriggerPlayerFell();
                 }
+                else if (Stage2Manager.Instance != null)
+                {
+                    Stage2Manager.Instance.TriggerPlayerFell();
+                }
                 else if (SceneController.Instance != null)
                 {
                     SceneController.Instance.LoadGameOver();
