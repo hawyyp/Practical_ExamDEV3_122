@@ -1,12 +1,12 @@
-﻿{
-    "mcpServers":  {
-                       "unity":  {
-                                     "args":  [
-                                                  "--mcp",
-                                                  "--project-path",
-                                                  "C:\\Users\\pohug\\Downloads\\Practical_ExamDEV3"
-                                              ],
-                                     "command":  "C:\\Users\\pohug\\.unity\\relay\\relay_win.exe"
-                                 }
-                   }
+{
+  "mcpServers": {
+    "unity": {
+      "command": "C:\\Users\\filmmie\\.unity\\relay\\relay_win.exe",
+      "args": [
+        "--mcp",
+        "--project-path",
+        "C:\\Users\\filmmie\\Documents\\Practical_ExamDEV3"
+      ]
+    }
+  }
 }

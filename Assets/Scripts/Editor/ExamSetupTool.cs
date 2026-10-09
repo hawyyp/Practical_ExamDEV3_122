@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine.ProBuilder;
+using UnityEngine.ProBuilder.Shapes;
 
 namespace Ratchanon.Editor
 {
@@ -304,6 +305,7 @@ namespace Ratchanon.Editor
             // Animator & Animator Controller
             Animator anim = go.GetComponent<Animator>();
             if (anim == null) anim = go.AddComponent<Animator>();
+            anim.applyRootMotion = false;
 
             string controllerPath = $"{PREFABS_DIR}/HumanoidPlayerController.controller";
             UnityEditor.Animations.AnimatorController ac = AssetDatabase.LoadAssetAtPath<UnityEditor.Animations.AnimatorController>(controllerPath);
@@ -966,12 +968,26 @@ namespace Ratchanon.Editor
 
         private static void CreatePlatform(Transform parent, string name, Vector3 pos, Vector3 size, Material baseMat, Material trimMat)
         {
-            GameObject plat = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            GameObject plat;
+            try
+            {
+                var pbMesh = ShapeFactory.Instantiate<Cube>();
+                plat = pbMesh.gameObject;
+            }
+            catch
+            {
+                plat = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            }
+
             plat.name = name;
             plat.transform.SetParent(parent, false);
             plat.transform.position = pos;
             plat.transform.localScale = size;
             if (baseMat != null) plat.GetComponent<Renderer>().sharedMaterial = baseMat;
+
+            // Ensure solid BoxCollider for character movement
+            BoxCollider col = plat.GetComponent<BoxCollider>();
+            if (col == null) col = plat.AddComponent<BoxCollider>();
 
             // Optional top border accent trim
             if (trimMat != null)
@@ -1226,36 +1242,7 @@ namespace Ratchanon.Editor
 
         private static void CreateProBuilderPlatform(Transform parent, string name, Vector3 pos, Vector3 size, Material baseMat, Material trimMat)
         {
-            GameObject plat = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            plat.name = name;
-            plat.transform.SetParent(parent, false);
-            plat.transform.position = pos;
-            plat.transform.localScale = size;
-            if (baseMat != null) plat.GetComponent<Renderer>().sharedMaterial = baseMat;
-
-            // Attach ProBuilderMesh so it's registered as a ProBuilder object in the scene
-            try
-            {
-                var pbMesh = plat.GetComponent<UnityEngine.ProBuilder.ProBuilderMesh>();
-                if (pbMesh == null)
-                {
-                    pbMesh = plat.AddComponent<UnityEngine.ProBuilder.ProBuilderMesh>();
-                }
-            }
-            catch { }
-
-            // Optional top border accent trim
-            if (trimMat != null)
-            {
-                GameObject trim = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                trim.name = "Trim";
-                trim.transform.SetParent(plat.transform, false);
-                trim.transform.localPosition = new Vector3(0f, 0.51f, 0f);
-                trim.transform.localScale = new Vector3(1.01f, 0.04f, 1.01f);
-                Collider trimCol = trim.GetComponent<Collider>();
-                if (trimCol != null) Object.DestroyImmediate(trimCol);
-                trim.GetComponent<Renderer>().sharedMaterial = trimMat;
-            }
+            CreatePlatform(parent, name, pos, size, baseMat, trimMat);
         }
 
         private static void SpawnStage2ItemsAndObstacles(Transform parent)
